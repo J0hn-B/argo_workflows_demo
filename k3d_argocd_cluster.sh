@@ -5,7 +5,7 @@ GREEN='\033[0;32m'
 NC='\033[0m'
 
 # Variables
-CLUSTER_NAME="$(basename "$PWD" | sed 's/_//')-localCluster"
+CLUSTER_NAME="$(basename "$PWD" | tr -d "_")-localCluster"
 CLUSTER=$(k3d cluster list | grep "$CLUSTER_NAME")
 
 # Create the k3d cluster
