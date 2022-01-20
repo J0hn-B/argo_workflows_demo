@@ -24,15 +24,15 @@ destroy:
 # # #* Create k8s directory structure  ==> make create_dir
 .PHONY: create_dir
 create_dir:
-	@ls "k8s/apps/" >/dev/null && echo "==> k8s/apps/ directories exist." || mkdir -p k8s/apps/ 
+	@ls "k8s/apps/" >/dev/null && echo "==> k8s/apps/ directories ✓" || mkdir -p k8s/apps/ 
 
-	@[ -f ".gitattributes" ] && echo "==> .gitattributes exists." || echo "* text eol=lf" > .gitattributes;
+	@[ -f ".gitattributes" ] && echo "==> .gitattributes ✓" || echo "* text eol=lf" > .gitattributes;
 
-	@[ -f "readme.md" ] && echo "==> readme.md exists." || curl https://gist.githubusercontent.com/J0hn-B/0a8bc6d764576c1ebdcc3ecb21c3ec33/raw > readme.md;
+	@[ -f "readme.md" ] && echo "==> readme.md ✓" || curl https://gist.githubusercontent.com/J0hn-B/0a8bc6d764576c1ebdcc3ecb21c3ec33/raw > readme.md;
 
-	@[ -f "k3d_argocd_cluster.sh" ] && echo "==> k3d_argo_cluster.sh exists." || curl https://gist.githubusercontent.com/J0hn-B/7dad3e4d630ec7e61e36f07d7da55fd7/raw > k3d_argocd_cluster.sh;
+	@[ -f "k3d_argocd_cluster.sh" ] && echo "==> k3d_argo_cluster.sh ✓" || curl https://gist.githubusercontent.com/J0hn-B/7dad3e4d630ec7e61e36f07d7da55fd7/raw > k3d_argocd_cluster.sh;
 
-	@[ -f ".gitignore" ] && echo "==> .gitignore exists." || curl https://raw.githubusercontent.com/kubernetes/kubernetes/master/.gitignore > .gitignore;
+	@[ -f ".gitignore" ] && echo "==> .gitignore ✓" || curl https://raw.githubusercontent.com/kubernetes/kubernetes/master/.gitignore > .gitignore;
 
 
 # # #* Lint code  ==> make code_lint
