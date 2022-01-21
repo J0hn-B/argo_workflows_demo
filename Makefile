@@ -50,13 +50,12 @@ create_dir:
 
 
 # # #* Get the quick start manifest which will install Argo Workflow as well as some commonly used components  ==> make get_argo_workflows
-.PHONY: get_argo_workflows
-get_argo_workflows:
+.PHONY: argo_workflows
+argo_workflows:
 	@if [ ! -f "k8s/apps/argo_workflows/base/kustomization.yaml" ]; then \
 	mkdir -p k8s/apps/argo_workflows/base \
 	&& yq e -n '.resources += [ "https://raw.githubusercontent.com/argoproj/argo-workflows/master/manifests/quick-start-postgres.yaml" ]' \
 	> k8s/apps/argo_workflows/base/kustomization.yaml && echo "==> kubectl kustomize k8s/apps/argo_workflows/base"; fi
-
 
 
 # # #* Lint code  ==> make code_lint
