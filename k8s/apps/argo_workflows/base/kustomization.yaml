@@ -1,2 +1,5 @@
 resources:
+  - namespace.yaml
   - https://raw.githubusercontent.com/argoproj/argo-workflows/master/manifests/quick-start-postgres.yaml
+
+namespace: argo

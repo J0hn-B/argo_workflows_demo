@@ -8,6 +8,8 @@ NC='\033[0m'
 CLUSTER_NAME="$(basename "$PWD" | tr -d "_")-localCluster"
 CLUSTER=$(k3d cluster list | grep "$CLUSTER_NAME")
 
+set -e
+
 # Create the k3d cluster
 create_cluster() {
   if [ "$CLUSTER" ]; then
