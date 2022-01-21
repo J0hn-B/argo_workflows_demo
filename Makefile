@@ -9,7 +9,6 @@ NC    := $(shell echo -e '\033[0m')
 REPO := $(shell git rev-parse --show-toplevel)
 
 
-
 #? Create a cluster with k3d
 .PHONY: apply
 apply:
@@ -50,6 +49,14 @@ create_dir:
 	else echo "==> .gitignore $(GREEN)✓$(NC)"; fi
 
 
+# # #* Get the quick start manifest which will install Argo Workflow as well as some commonly used components  ==> make get_argo_workflows
+.PHONY: get_argo_workflows
+get_argo_workflows:
+	@if [ ! -f "k8s/apps/argo_workflows/base/kustomization.yaml" ]; then \
+	mkdir -p k8s/apps/argo_workflows/base \
+	&& yq e -n '.resources += [ "https://raw.githubusercontent.com/argoproj/argo-workflows/master/manifests/quick-start-postgres.yaml" ]' \
+	> k8s/apps/argo_workflows/base/kustomization.yaml && echo "==> kubectl kustomize k8s/apps/argo_workflows/base"; fi
+
 
 
 # # #* Lint code  ==> make code_lint
@@ -72,8 +79,3 @@ datree:
 	@for file in k8s/apps/*/*/*.yaml; do \
         echo $$file; cat $$file | docker run -i datree/datree test - --ignore-missing-schemas;  \
     done
-
-
-
-
-
