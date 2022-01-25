@@ -1,5 +1,6 @@
 resources:
   - namespace.yaml
+  - config_map.yaml
   - https://raw.githubusercontent.com/argoproj/argo-workflows/v3.2.6/manifests/quick-start-minimal.yaml
 
 images:

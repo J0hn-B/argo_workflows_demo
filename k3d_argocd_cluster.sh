@@ -92,7 +92,7 @@ install_argocd_apps() {
   # Port forward the Argo apps web UI
   kubectl port-forward svc/argo-server -n argo ${WORKFLOWS_PORT}:2746 >/dev/null 2>&1 &
 
-  echo "==> ${GREEN}Argo Workflows${NC}: https://localhost:${WORKFLOWS_PORT}"
+  echo "==> ${GREEN}Argo Workflows >> open on incognito window:${NC} https://localhost:${WORKFLOWS_PORT}"
 }
 
 # Access the ArgoCD web UI
