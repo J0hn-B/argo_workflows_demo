@@ -13,6 +13,7 @@ REPO := $(shell git rev-parse --show-toplevel)
 .PHONY: apply
 apply:
 	. ./k3d_argocd_cluster.sh && create_cluster && install_argocd && access_argocd
+	. ./k3d_argocd_cluster.sh && install_argocd_apps 
 
 
 #? Destroy the cluster 

@@ -8,8 +8,6 @@ NC='\033[0m'
 CLUSTER_NAME="$(basename "$PWD" | tr -d "_")-localCluster"
 CLUSTER=$(k3d cluster list | grep "$CLUSTER_NAME")
 
-set -e
-
 # Create the k3d cluster
 create_cluster() {
   if [ "$CLUSTER" ]; then
@@ -44,7 +42,7 @@ install_argocd() {
   fi
 
   echo
-  # Verify ArgoCD is available and deploy argocd apps
+  # Verify ArgoCD is available
   kubectl -n argocd wait --for condition=Available --timeout=600s deployment/argocd-server
 
   # Update argocd congig map to allow synv waves to be restored for app of apps patern
@@ -77,6 +75,24 @@ data:
 EOF
   )
   echo "$ARGOCD_CONFIG_MAP" | kubectl apply -f -
+}
+
+# Argo cd apps
+install_argocd_apps() {
+  WORKFLOWS_PORT=2746
+  # Deploy
+  kubectl apply -f k8s/argocd_apps.yaml
+  sleep 5
+
+  # Verify Argocd  apps are available
+  kubectl -n argo wait --for condition=Available --timeout=600s deployment/argo-server
+
+  echo
+
+  # Port forward the Argo apps web UI
+  kubectl port-forward svc/argo-server -n argo ${WORKFLOWS_PORT}:2746 >/dev/null 2>&1 &
+
+  echo "==> ${GREEN}Argo Workflows${NC}: https://localhost:${WORKFLOWS_PORT}"
 }
 
 # Access the ArgoCD web UI
