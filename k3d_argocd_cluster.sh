@@ -82,7 +82,7 @@ install_argocd_apps() {
   WORKFLOWS_PORT=2746
   # Deploy
   kubectl apply -f k8s/clusters/dev
-  sleep 5
+  sleep 9
 
   # Verify Argocd  apps are available
   kubectl -n argo wait --for condition=Available --timeout=600s deployment/argo-server
