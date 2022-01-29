@@ -3,10 +3,8 @@ kind: Workflow
 metadata:
   generateName: k8s-example-
 spec:
-  # invoke the whalesay template with
-  # "hello world" as the argument
-  # to the message parameter
   entrypoint: k8s-get-ns
+  serviceAccountName: dev-argo-sa-01
 
   templates:
     - name: k8s-get-ns
@@ -14,6 +12,7 @@ spec:
         action: get
         manifest: |
           apiVersion: v1
-          kind: Namespace
+          kind: Service 
           metadata:
-            name: default
+            name: argo-server
+            namespace: argo

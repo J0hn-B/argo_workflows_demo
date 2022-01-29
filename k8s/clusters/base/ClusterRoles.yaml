@@ -5,7 +5,7 @@ metadata:
   name: api-resources-01
 rules:
   - apiGroups:
-      - ""
+      - "*"
     resources:
       - cronjobs
       - pods
