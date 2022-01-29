@@ -81,7 +81,8 @@ EOF
 install_argocd_apps() {
   WORKFLOWS_PORT=2746
   # Deploy
-  kubectl apply -f k8s/clusters/overlays/dev
+  kubectl apply -f k8s/clusters/overlays/dev/argocd_clusters.yaml
+  kubectl apply -f k8s/clusters/overlays/dev/argocd_apps.yaml
   sleep 9
 
   # Verify Argocd  apps are available
