@@ -1,6 +1,4 @@
 resources:
   - ../../base
-  - argocd_clusters.yaml
-  - argocd_apps.yaml
 
 namePrefix: dev-
