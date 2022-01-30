@@ -9,6 +9,8 @@ NC    := $(shell echo -e '\033[0m')
 REPO := $(shell git rev-parse --show-toplevel)
 
 
+################################################################################
+
 #? Create a cluster with k3d
 .PHONY: apply
 apply:
@@ -22,9 +24,7 @@ destroy:
 	. ./k3d_argocd_cluster.sh && delete_cluster
 
 
-
-
-
+################################################################################
 
 # # #* Create k8s directory structure  ==> make create_dir
 .PHONY: create_dir
@@ -50,20 +50,11 @@ create_dir:
 	else echo "==> .gitignore $(GREEN)✓$(NC)"; fi
 
 
-# # #* Get the quick start manifest which will install Argo Workflow as well as some commonly used components  ==> make get_argo_workflows
-.PHONY: argo_workflows
-argo_workflows:
-	@if [ ! -f "k8s/apps/argo_workflows/base/kustomization.yaml" ]; then \
-	mkdir -p k8s/apps/argo_workflows/base \
-	&& yq e -n '.resources += [ "https://raw.githubusercontent.com/argoproj/argo-workflows/master/manifests/quick-start-postgres.yaml" ]' \
-	> k8s/apps/argo_workflows/base/kustomization.yaml && echo "==> kubectl kustomize k8s/apps/argo_workflows/base"; fi
-
-
 # # #* Lint code  ==> make code_lint
 .PHONY: code_lint
 code_lint:
 	@echo "$(GREEN) ==> Github Super-Linter will validate your source code.$(NC) < https://github.com/github/super-linter >"
-	docker run --rm -e KUBERNETES_KUBEVAL_OPTIONS=--ignore-missing-schemas -e RUN_LOCAL=true \
+	docker run --rm -e VALIDATE_KUBERNETES_KUBEVAL=false -e RUN_LOCAL=true \
 	-v $(REPO):/tmp/lint ghcr.io/github/super-linter:slim-v4
 	
 ifeq ($(shell uname), Linux)
@@ -72,10 +63,3 @@ else
 	powershell "Get-ChildItem -Recurse $(REPO) | where Name -match 'super-linter.log' | Remove-Item"
 endif
 
-
-# # #* Run automatic checks for rule violations, against Kubernetes manifests YAML files  ==> make datree
-.PHONY: datree
-datree:
-	@for file in k8s/apps/*/*/*.yaml; do \
-        echo $$file; cat $$file | docker run -i datree/datree test - --ignore-missing-schemas;  \
-    done
