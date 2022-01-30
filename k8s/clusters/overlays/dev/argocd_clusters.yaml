@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: "https://github.com/J0hn-B/argo_workflows_demo"
     path: k8s/clusters/overlays/dev
-    targetRevision: workflows
+    targetRevision: HEAD
   destination:
     server: "https://kubernetes.default.svc"
   syncPolicy:
