@@ -32,7 +32,7 @@ k3d, make
 
 > Be sure to wait until the deployment has completed before continuing.
 
-![image](https://user-images.githubusercontent.com/40946247/151705732-029009f5-0da8-4bbb-b2ab-1797b60399f5.png)
+![image](https://user-images.githubusercontent.com/40946247/151710307-8cdd8aa2-cc53-4171-89de-67c366012f90.png)
 
 ## Submit a workflow
 
@@ -51,4 +51,8 @@ argo submit -n argo --watch argo-workflows/workflows/multi-step.yaml
 
 Access the ArgoCD dashboard.
 
+![image](https://user-images.githubusercontent.com/40946247/151710341-04fbe532-b350-46f2-a060-0b198588bd15.png)
+
 Access the Argo Workflows dashboard.
+
+![image](https://user-images.githubusercontent.com/40946247/151710364-3f71d43b-931b-476f-8de6-0fdce6040d4c.png)
